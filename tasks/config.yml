@@ -12,7 +12,7 @@
 
 - name: config | Configuring Observium
   template:
-    src: "config.php.j2"
+    src: "{{ observium_config_template }}"
     dest: "{{ observium_base_dir }}/config.php"
 
 - name: config | Creating Logs and Graph Directories
@@ -49,7 +49,7 @@
 
 - name: config | Configuring Apache Site
   template:
-    src: "etc/apache2/sites-available/000-default.conf.j2"
+    src: "{{ observium_apache_config_template }}"
     dest: "/etc/apache2/sites-available/000-default.conf"
     owner: "root"
     group: "root"
