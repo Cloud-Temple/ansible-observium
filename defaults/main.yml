@@ -52,3 +52,6 @@ observium_commercial_svn_repo: "http://svn.observium.org/svn/observium/branches/
 
 observium_config_template: "config.php.j2"
 observium_apache_config_template: "etc/apache2/sites-available/000-default.conf.j2"
+
+observium_apache_mods_enabled:
+  - 'rewrite'

@@ -47,6 +47,14 @@
     state: "touch"
   when: observium_db_populated.changed
 
+- name: config | Ensuring Apache Mods are Enabled
+  apache2_module:
+    name: "{{ item }}"
+    state: "present"
+  notify:
+    - 'restart {{ webserver_handler }}'
+  with_items: "{{ observium_apache_mods_enabled }}"
+
 - name: config | Configuring Apache Site
   template:
     src: "{{ observium_apache_config_template }}"
@@ -69,12 +77,3 @@
   with_items:
     - 'mcrypt'
   when: item not in php_mods_enabled.stdout_lines
-
-- name: config | Ensuring Apache Mods are Enabled
-  apache2_module:
-    name: "{{ item }}"
-    state: "present"
-  notify:
-    - 'restart {{ webserver_handler }}'
-  with_items:
-    - 'rewrite'
