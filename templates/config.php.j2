@@ -11,6 +11,8 @@ $config['db_name']      = '{{ observium_db_info.db }}';
 
 // Base directory
 #$config['install_dir'] = "{{ observium_base_dir }}";
+$config['rrd_dir']     = "{{ observium_rrd_dir }}";
+$config['log_dir']     = "{{ observium_log_dir }}";
 
 // Default community list to use when adding/discovering
 $config['snmp']['community'] = array({{ observium_snmp_community_list | join(',') }});

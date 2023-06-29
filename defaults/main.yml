@@ -8,6 +8,8 @@ observium_admin_account_info:
   password: 'observium'
   username: 'admin'
 observium_base_dir: '{{ observium_dl_dir }}/observium'
+observium_rrd_dir: '{{ observium_base_dir }}/rrd'
+observium_log_dir: '{{ observium_base_dir }}/logs'
 observium_db_info:
   db: 'observium'
   host: '127.0.0.1'

@@ -20,12 +20,12 @@
     path: "{{ item }}"
     state: "directory"
   with_items:
-    - '{{ observium_base_dir }}/logs'
-    - '{{ observium_base_dir }}/rrd'
+    - '{{ observium_log_dir }}'
+    - '{{ observium_rrd_dir }}'
 
 - name: config | Setting Permissions on Graph Directory
   file:
-    path: "{{ observium_base_dir }}/rrd"
+    path: "{{ observium_rrd_dir }}"
     state: "directory"
     owner: "{{ web_owner }}"
     group: "{{ web_group }}"
