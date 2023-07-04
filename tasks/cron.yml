@@ -20,37 +20,36 @@
     cron_file: 'observium'
 
 - name: Schedule jobs for observium
-  cron: name='{{ item.name }}'
-        job='{{ item.job }}'
-        user='root'
-        cron_file='observium'
-        hour='{{ item.hour }}'
-        minute='{{ item.minute }}'
-        state=present
+  cron:
+    name: '{{ item.name }}'
+    job: '{{ item.job }}'
+    user: 'root'
+    cron_file: 'observium'
+    hour: '{{ item.hour }}'
+    minute: '{{ item.minute }}'
+    state: present
   with_items:
-
     - name: "Run a complete discovery of all devices once every 6 hours"
-      job: "/opt/observium/discovery.php -h all >> /dev/null 2>&1"
+      job: "{{ observium_base_dir }}/discovery.php -h all >> /dev/null 2>&1"
       hour: "*/6"
       minute: "33"
 
     - name: "Run automated discovery of newly added devices every 5 minutes"
-      job: "/opt/observium/discovery.php -h new >> /dev/null 2>&1"
+      job: "{{ observium_base_dir }}/discovery.php -h new >> /dev/null 2>&1"
       hour: "*"
       minute: "*/5"
 
     - name: "Run multithreaded poller wrapper every 5 minutes"
-      job: "/opt/observium/poller-wrapper.py 6 >> /dev/null 2>&1"
+      job: "{{ observium_base_dir }}/poller-wrapper.py 6 >> /dev/null 2>&1"
       hour: "*"
       minute: "*/5"
 
     - name: "Run housekeeping script daily for syslog, eventlog and alert log"
-      job: "/opt/observium/housekeeping.php -ysel >> /dev/null 2>&1"
+      job: "{{ observium_base_dir }}/housekeeping.php -ysel >> /dev/null 2>&1"
       hour: "5"
       minute: "13"
 
     - name: "Run housekeeping script daily for rrds, ports, orphaned entries in the database and performance data"
-      job: "/opt/observium/housekeeping.php -yrptb >> /dev/null 2>&1"
+      job: "{{ observium_base_dir }}/housekeeping.php -yrptb >> /dev/null 2>&1"
       hour: "4"
       minute: "47"
-
