@@ -17,4 +17,12 @@
     dest: "{{ observium_base_dir }}"
     username: "{{ observium_commercial_svn_user }}"
     password: "{{ observium_commercial_svn_password }}"
-    update: no
+    update: "{{ observium_commercial_svn_update | bool }}"
+    revision: "{{ observium_commercial_svn_revision }}"
+  register: observium_commercial_updated
+
+- name: install-commercial | Removing Observium DB Populated file
+  file:
+    path: "/root/.observium_db_populated"
+    state: absent
+  when: observium_commercial_updated.changed
