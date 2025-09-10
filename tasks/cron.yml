@@ -16,14 +16,14 @@
   cronvar:
     name: PATH
     value: "/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
-    user: root
+    user: "{{ web_owner }}"
     cron_file: 'observium'
 
 - name: Schedule jobs for observium
   cron:
     name: '{{ item.name }}'
     job: '{{ item.job }}'
-    user: 'root'
+    user: "{{ web_owner }}"
     cron_file: 'observium'
     hour: '{{ item.hour }}'
     minute: '{{ item.minute }}'

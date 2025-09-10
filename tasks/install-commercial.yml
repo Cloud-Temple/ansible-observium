@@ -11,6 +11,13 @@
     msg: "observium_commercial_svn_password variable is undefined, this means we cannot clone from observium SVN"
   when: not observium_commercial_svn_password | length > 0
 
+- name: install-commercial | Create {{ observium_base_dir }}
+  file:
+    path: "{{ observium_base_dir }}"
+    state: "directory"
+    owner: "{{ web_owner }}"
+    group: "{{ web_group }}"
+
 - name: install-commercial | Downloading Observium to {{ observium_dl_dir }}
   subversion:
     repo: "{{ observium_commercial_svn_repo }}"
@@ -20,6 +27,7 @@
     update: "{{ observium_commercial_svn_update | bool }}"
     revision: "{{ observium_commercial_svn_revision }}"
   register: observium_commercial_updated
+  become_user: "{{ web_owner }}"
 
 - name: install-commercial | Removing Observium DB Populated file
   file:

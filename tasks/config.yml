@@ -14,22 +14,18 @@
   template:
     src: "{{ observium_config_template }}"
     dest: "{{ observium_base_dir }}/config.php"
+    owner: "{{ web_owner }}"
+    group: "{{ web_group }}"
 
 - name: config | Creating Logs and Graph Directories
   file:
     path: "{{ item }}"
     state: "directory"
+    owner: "{{ web_owner }}"
+    group: "{{ web_group }}"
   with_items:
     - '{{ observium_log_dir }}'
     - '{{ observium_rrd_dir }}'
-
-- name: config | Setting Permissions on Graph Directory
-  file:
-    path: "{{ observium_rrd_dir }}"
-    state: "directory"
-    owner: "{{ web_owner }}"
-    group: "{{ web_group }}"
-    recurse: yes
 
 - name: config | Checking if Observium DB Has Been Populated
   stat:
