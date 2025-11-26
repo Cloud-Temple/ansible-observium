@@ -30,17 +30,17 @@
     state: present
   with_items:
     - name: "Run a complete discovery of all devices once every 6 hours"
-      job: "{{ observium_base_dir }}/discovery.php -h all >> /dev/null 2>&1"
+      job: "{{ observium_base_dir }}/observium-wrapper discovery >> /dev/null 2>&1"
       hour: "*/6"
       minute: "33"
 
     - name: "Run automated discovery of newly added devices every 5 minutes"
-      job: "{{ observium_base_dir }}/discovery.php -h new >> /dev/null 2>&1"
+      job: "{{ observium_base_dir }}/observium-wrapper discovery --host new >> /dev/null 2>&1"
       hour: "*"
       minute: "*/5"
 
     - name: "Run multithreaded poller wrapper every 5 minutes"
-      job: "{{ observium_base_dir }}/poller-wrapper.py 6 >> /dev/null 2>&1"
+      job: "{{ observium_base_dir }}/observium-wrapper poller  >> /dev/null 2>&1"
       hour: "*"
       minute: "*/5"
 
